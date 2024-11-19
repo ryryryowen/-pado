@@ -1,0 +1,23 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+} 
+
+:root {
+  --color-text-base: #000;
+  --color-text-muted: #475569;
+  --color-bg-base: #fff;
+  --color-bg-muted: #f8fafc;
+}
