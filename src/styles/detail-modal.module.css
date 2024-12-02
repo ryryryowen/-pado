@@ -7,9 +7,29 @@
     margin: 0 auto;
     width: 1200px;
     .detailBanner {
+      display: flex;
+      .closeIcon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        align-self: flex-end;
+        border-radius: 50%;
+        margin-bottom: 40px;
+        background: rgba(0, 0, 0, 0.1);
+        transition: background 0.3s;
+        cursor: pointer;
+        &:hover {
+          background: rgba(0, 0, 0, 0.2);
+        }
+      }
+      .bannerContent {
+        display: flex;
+      }
       padding: 40px;
       height: 500px;
       display: flex;
+      flex-direction: column;
       gap: 10px;
       margin-bottom: 40px;
       .headerImg {
@@ -25,16 +45,25 @@
         .descTitle {
           display: flex;
           flex-direction: column;
+          gap: 10px;
           font-size: 40px;
           .genre {
             display: flex;
             gap: 4px;
             font-size: 14px;
-            .genreItem{
+            .genreItem {
               color: #ccc;
               background: none;
               padding: 0;
             }
+          }
+          .adultBadge {
+            width: 20px;
+            height: 20px;
+            margin-left: 4px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid white;
           }
           & span {
             display: flex;
@@ -50,8 +79,45 @@
           }
         }
         .descContent {
-          & span {
-            padding-right: 10px;
+          display: flex;
+          align-items: center;
+          width: 400px;
+          justify-content: space-between;
+          .playButtonContainer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .playButton {
+              display: flex;
+              align-items: center;
+              background: #fff;
+              padding: 16px;
+              border: none;
+              border-radius: 50%;
+              cursor: pointer;
+              transition: opacity 0.3s;
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+            & > span {
+              font-weight: 550;
+            }
+          }
+          .quickMenu {
+            display: flex;
+            gap: 14px;
+            .quickMenuItem {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              gap: 6px;
+              font-size: 12px;
+              & span {
+                color: #ccc;
+              }
+            }
           }
         }
         .descBtnGroup {

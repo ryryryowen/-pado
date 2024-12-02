@@ -4,3 +4,7 @@ html,
 body {
   font-family: "Noto Sans KR";
 }
+
+:root {
+  --dark-point-color: #162447;
+}
