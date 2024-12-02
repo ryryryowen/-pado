@@ -1,0 +1,103 @@
+.wrapper {
+  width: 100%;
+  & > * {
+    color: white;
+  }
+  .inner {
+    margin: 0 auto;
+    width: 1200px;
+    .detailBanner {
+      padding: 40px;
+      height: 500px;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 40px;
+      .headerImg {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      .headerDesc {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .descTitle {
+          display: flex;
+          flex-direction: column;
+          font-size: 40px;
+          .genre {
+            display: flex;
+            gap: 4px;
+            font-size: 14px;
+            .genreItem{
+              color: #ccc;
+              background: none;
+              padding: 0;
+            }
+          }
+          & span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+            padding: 6px 10px;
+            font-size: 14px;
+            background: rgb(75, 76, 105);
+            border-radius: 8px;
+            font-weight: 500;
+          }
+        }
+        .descContent {
+          & span {
+            padding-right: 10px;
+          }
+        }
+        .descBtnGroup {
+          display: flex;
+          gap: 10px;
+          .descBtn {
+            padding: 6px 14px;
+            border: 1px solid white;
+            border-radius: 20px;
+            background: none;
+            color: white;
+            transition: all 0.3s;
+            &:hover {
+              background: white;
+              color: black;
+            }
+          }
+        }
+        .descOverview {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        .descCheckout {
+          background: dodgerblue;
+          font-weight: 600;
+          border: none;
+        }
+      }
+    }
+    .detailContent {
+      height: 300px;
+      background: dodgerblue;
+      padding: 20px;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 20px;
+      .contentTitle {
+        font-size: 26px;
+        font-weight: 600;
+      }
+    }
+    .detailVideo {
+      width: 100%;
+      height: 600px;
+    }
+  }
+}
