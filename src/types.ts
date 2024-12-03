@@ -10,6 +10,14 @@ export interface ITrailerResults {
   results: ITrailer[];
 }
 
+export interface IReviewResults {
+  id: number;
+  page: number;
+  results: IReview[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface IMovieData {
   adult: string;
   backdrop_path: string;
@@ -42,15 +50,33 @@ interface IGenre {
   name: string;
 }
 
-interface ITrailer {
-  iso_639_1: string;
-  iso_3166_1: string;
+export interface ITrailer {
+  iso_639_1?: string;
+  iso_3166_1?: string;
   name: string;
+  trailerKey?: string;
   key: string;
-  site: string;
-  size: string;
-  type: string;
-  official: string;
+  site?: string;
+  size?: string;
+  type?: string;
+  official?: string;
   published_at: string;
+  id?: string;
+}
+
+interface IReview {
+  author: string;
+  author_details: IReviewAuthor;
+  content: string;
+  created_at: string;
   id: string;
+  updated_at: string;
+  url: string;
+}
+
+interface IReviewAuthor {
+  name: string;
+  username: string;
+  avatar_path?: string | null;
+  rating: number;
 }
