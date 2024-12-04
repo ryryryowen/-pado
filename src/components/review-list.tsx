@@ -36,13 +36,14 @@ const ReviewList = async ({
       <h5 className={style.reviewsTitle}>
         리뷰 ({reviews.total_results + userReviews.length})
       </h5>
-      {userReviews.reverse().map((review) => (
+      {userReviews.map((review) => (
         <div className={style.reviewItem}>
           <div className={style.reviewItemHeader}>
             <div className={style.ratings}>
               <div className={style.reviewRating}>
                 {Array.from({ length: 5 }).map((_, index) => (
                   <FaStar
+                    key={index}
                     size={18}
                     color={index >= review.ratings ? "#666" : "#1451F9"}
                   />

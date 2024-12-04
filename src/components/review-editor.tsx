@@ -4,7 +4,6 @@ import createReviewAction from "@/actions/create-review-action";
 import style from "@/styles/reviews-slot.module.css";
 import StarList from "./star-list";
 import React, { useActionState, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const ReviewEditor = ({ params }: { params: { id: string } }) => {
   const [state, formAction, isPending] = useActionState(
@@ -24,17 +23,8 @@ const ReviewEditor = ({ params }: { params: { id: string } }) => {
     <>
       <StarList ratings={ratings} setRatings={setRatings} />
       <form action={formAction} className={style.reviewForm}>
-        <input type="text" name="reviewId" value={uuidv4()} readOnly hidden />
         <input type="text" name="movieId" value={params.id} readOnly hidden />
         <input type="text" name="ratings" value={ratings} readOnly hidden />
-        <input
-          type="text"
-          name="createdAt"
-          value={Date.now()}
-          readOnly
-          hidden
-        />
-        <input type="text" name="likes" value={0} readOnly hidden />
         <textarea
           name="reviewContent"
           placeholder={
