@@ -80,3 +80,11 @@ interface IReviewAuthor {
   avatar_path?: string | null;
   rating: number;
 }
+
+export interface IUserReview {
+  id: string;
+  ratings: number;
+  createdAt: string;
+  likes: number;
+  content: string;
+}

@@ -1,7 +1,6 @@
 .trailerItem {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   .trailerVideo{
     height: 200px;
   }

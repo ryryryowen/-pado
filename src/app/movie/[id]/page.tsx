@@ -16,13 +16,11 @@ import MenuIndicator from "@/components/menu-indicator";
 const DetailModal = async ({
   params,
   searchParams,
-  reviews,
-  similar,
+  
 }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ route: string }>;
-  reviews: ReactNode;
-  similar: ReactNode;
+  
 }) => {
   const urls = [
     `${process.env.NEXT_TMDB_BASEURL}/movie/${(await params).id}?api_key=${
@@ -209,8 +207,6 @@ const DetailModal = async ({
             </div> */}
             </>
           )}
-          {routeSwitcher === "reviews" && reviews}
-          {routeSwitcher === "similar" && similar}
         </div>
       </div>
     </div>
