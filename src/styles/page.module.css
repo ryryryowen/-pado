@@ -1,0 +1,11 @@
+.main-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  color: white; /* 텍스트 색상을 흰색으로 설정 */
+}
+
+.content-section {
+  padding: 2rem 1rem;
+  color: white; /* 텍스트 색상을 흰색으로 설정 */
+}

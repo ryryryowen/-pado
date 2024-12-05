@@ -1,0 +1,104 @@
+.sliderContainer {
+  padding: 20px 0;
+  margin: 20px 0;
+  position: relative;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 16px;
+  padding-left: 60px;
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px 60px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.pageIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activeDot {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+.movieCard {
+  flex: 0 0 250px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.movieCard:hover {
+  transform: scale(1.05) translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.movieImage {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.movieInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    transparent 100%
+  );
+  opacity: 1;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.movieCard:hover .movieInfo {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .title {
+    padding-left: 20px;
+  }
+
+  .slider {
+    padding: 20px;
+  }
+
+  .movieCard {
+    flex: 0 0 150px;
+  }
+
+  .movieImage {
+    height: 250px;
+  }
+}

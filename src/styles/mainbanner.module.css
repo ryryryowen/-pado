@@ -1,0 +1,57 @@
+.bannerWrapper {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.bannerSlider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 500ms ease-in-out;
+}
+
+.bannerSlide {
+  flex: 0 0 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.bannerContent {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  max-width: 650px;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.overview {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
