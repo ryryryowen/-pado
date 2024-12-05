@@ -10,13 +10,13 @@ const Layout = ({
   similar: ReactNode;
 }) => {
   return (
-    <>
+    <div className={style.container}>
       {children}
       <div className={style.slotWrapper}>
         {reviews}
         {similar}
       </div>
-    </>
+    </div>
   );
 };
 

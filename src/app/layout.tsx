@@ -8,8 +8,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <script defer src="https://www.youtube.com/player_api"></script>
       </head>
       <body>
-        {children}
-        <div>Hello Pado</div>
+        <div>{children}</div>
       </body>
     </html>
   );

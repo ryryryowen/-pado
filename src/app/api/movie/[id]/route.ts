@@ -12,7 +12,6 @@ export const GET = async (
     const reviews = await ReviewModel.find({ movieId: (await params).id }).sort(
       { createdAt: "desc" }
     );
-    console.log(reviews);
     return NextResponse.json(reviews);
   } catch (error) {
     console.error("Failed to fetch reviews:", error);

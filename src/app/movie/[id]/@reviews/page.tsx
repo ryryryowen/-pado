@@ -16,7 +16,8 @@ const ReviewsPage = async ({
       (
         await params
       ).id
-    }/reviews?api_key=${process.env.NEXT_TMDB_API_KEY}`
+    }/reviews?api_key=${process.env.NEXT_TMDB_API_KEY}`,
+    { cache: "force-cache" }
   );
   const reviewsData: IReviewResults = await response.json();
   if ((await searchParams).route !== "reviews") {

@@ -230,6 +230,24 @@
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 14px;
         row-gap: 30px;
+        &.noTrailers{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .noTrailer {
+          width: 100%;
+          height: 600px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          & > span {
+            color: #ccc;
+            font-size: 14px;
+          }
+        }
       }
     }
   }

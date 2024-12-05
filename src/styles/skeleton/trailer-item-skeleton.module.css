@@ -1,0 +1,23 @@
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.trailerItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  & * {
+    background: linear-gradient(90deg, #333 25%, #444 37%, #333 63%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    height: 20px;
+  }
+  .trailerVideo {
+    height: 200px;
+  }
+}

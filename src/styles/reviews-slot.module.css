@@ -57,7 +57,9 @@
       outline: none;
     }
     &:disabled {
-      cursor: not-allowed;
+      &:hover {
+        cursor: not-allowed;
+      }
     }
   }
   & > input {
@@ -73,10 +75,25 @@
     }
     &:disabled {
       background: #aaa;
-      cursor: not-allowed;
-      &:hover{
+      &:hover {
+        cursor: not-allowed;
         opacity: 1;
       }
+    }
+  }
+}
+
+.similarMoviesContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 14px;
+  row-gap: 80px;
+  .similarMovieItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    & > a > img {
+      object-fit: cover;
     }
   }
 }

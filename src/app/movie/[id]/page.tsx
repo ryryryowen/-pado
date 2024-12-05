@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaStar } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
+import { TbMovieOff } from "react-icons/tb";
 import Image from "next/image";
 import TrailerItem from "@/components/trailer-item";
 import Link from "next/link";
@@ -16,19 +17,14 @@ import MenuIndicator from "@/components/menu-indicator";
 const DetailModal = async ({
   params,
   searchParams,
-  
 }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ route: string }>;
-  
 }) => {
   const urls = [
     `${process.env.NEXT_TMDB_BASEURL}/movie/${(await params).id}?api_key=${
       process.env.NEXT_TMDB_API_KEY
     }&language=ko-KR`,
-    `${process.env.NEXT_TMDB_BASEURL}/movie/${
-      (await params).id
-    }/similar?api_key=${process.env.NEXT_TMDB_API_KEY}&language=ko-KR`,
     `${process.env.NEXT_TMDB_BASEURL}/movie/${
       (await params).id
     }/videos?api_key=${process.env.NEXT_TMDB_API_KEY}&language=ko-KR`,
@@ -38,9 +34,8 @@ const DetailModal = async ({
     fetch(url).then((response) => response.json())
   );
 
-  const [data, similarVideos, trailerData] = (await Promise.all(responses)) as [
+  const [data, trailerData] = (await Promise.all(responses)) as [
     IMovieData,
-    IResults,
     ITrailerResults
   ];
 
@@ -144,7 +139,7 @@ const DetailModal = async ({
                   }
                   href={`/movie/${data.id}?route=reviews`}
                 >
-                  평가/리뷰 {data?.vote_count}{" "}
+                  평가/리뷰{" "}
                   {routeSwitcher === "reviews" && (
                     <MenuIndicator route={routeSwitcher} />
                   )}
@@ -180,19 +175,33 @@ const DetailModal = async ({
                   개
                 </span>
               </h2>
-              <div className={style.trailersContainer}>
-                {trailerData.results
-                  .filter(
-                    (item) => item.site && item.site.toLowerCase() === "youtube"
-                  )
-                  .map((trailer) => (
-                    <TrailerItem
-                      key={trailer.key}
-                      trailerKey={trailer.key}
-                      name={trailer.name}
-                      published_at={trailer.published_at}
-                    />
-                  ))}
+              <div
+                className={
+                  trailerData.results.length > 0
+                    ? style.trailersContainer
+                    : `${style.trailersContainer} ${style.noTrailers}`
+                }
+              >
+                {trailerData.results.length > 0 ? (
+                  trailerData.results
+                    .filter(
+                      (item) =>
+                        item.site && item.site.toLowerCase() === "youtube"
+                    )
+                    .map((trailer) => (
+                      <TrailerItem
+                        key={trailer.key}
+                        trailerKey={trailer.key}
+                        name={trailer.name}
+                        published_at={trailer.published_at}
+                      />
+                    ))
+                ) : (
+                  <div className={style.noTrailer}>
+                    <TbMovieOff size={300} strokeWidth={1} color="#555" />
+                    <span>트레일러가 존재하지 않습니다.</span>
+                  </div>
+                )}
               </div>
 
               {/* <div className={style.language}>
