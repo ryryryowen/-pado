@@ -1,10 +1,18 @@
 import React from "react";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import { AuthProvider } from "@/contexts/AuthContext";
+import "./globals.css";
 
-const layout = () => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html>
+    <html lang="ko">
       <body>
-        <div>Hello Pado</div>
+        <AuthProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
