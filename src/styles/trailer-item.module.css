@@ -1,0 +1,10 @@
+.trailerItem {
+  display: flex;
+  flex-direction: column;
+  .trailerVideo{
+    height: 200px;
+  }
+  .trailerDate{
+    font-size: 12px;
+  }
+}

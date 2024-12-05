@@ -1,0 +1,254 @@
+.wrapper {
+  width: 100%;
+  & > * {
+    color: white;
+  }
+  .inner {
+    margin: 0 auto;
+    width: 1080px;
+    .detailBanner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 40px;
+      .closeIcon {
+        box-sizing: content-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        align-self: flex-end;
+        border-radius: 50%;
+        margin-bottom: 40px;
+        background: rgba(0, 0, 0, 0.1);
+        transition: background 0.3s;
+        cursor: pointer;
+        &:hover {
+          background: rgba(0, 0, 0, 0.2);
+        }
+      }
+      .bannerContent {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .headerImg {
+        position: relative;
+        z-index: 2;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      .headerDesc {
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        .descTitle {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          font-size: 40px;
+          .genre {
+            display: flex;
+            gap: 4px;
+            font-size: 14px;
+            .genreItem {
+              color: #ccc;
+              background: none;
+              padding: 0;
+            }
+          }
+          .adultBadge {
+            width: 20px;
+            height: 20px;
+            margin-left: 4px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid white;
+          }
+          & span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+            padding: 6px 10px;
+            font-size: 14px;
+            background: rgb(75, 76, 105);
+            border-radius: 8px;
+            font-weight: 500;
+          }
+        }
+        .descContentContainer {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          .descContent {
+            display: flex;
+            align-items: center;
+            width: 400px;
+            justify-content: space-between;
+            .playButtonContainer {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              .playButton {
+                display: flex;
+                align-items: center;
+                background: #fff;
+                padding: 16px;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: opacity 0.3s;
+                &:hover {
+                  opacity: 0.8;
+                }
+              }
+              & > span {
+                font-weight: 550;
+              }
+            }
+            .quickMenu {
+              display: flex;
+              gap: 14px;
+              .quickMenuItem {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                & span {
+                  color: #ccc;
+                }
+              }
+            }
+          }
+          .descOverview {
+            position: relative;
+            z-index: 2;
+            width: 600px;
+            font-size: 12px;
+            font-weight: normal;
+            color: #ccc;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+          }
+        }
+        .descBtnGroup {
+          display: flex;
+          gap: 10px;
+          .descBtn {
+            padding: 6px 14px;
+            border: 1px solid white;
+            border-radius: 20px;
+            background: none;
+            color: white;
+            transition: all 0.3s;
+            &:hover {
+              background: white;
+              color: black;
+            }
+          }
+        }
+        .descCheckout {
+          background: dodgerblue;
+          font-weight: 600;
+          border: none;
+        }
+      }
+      &::after {
+        content: "";
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--dark-point-color) 90%
+        );
+        z-index: 1;
+      }
+    }
+    .detailContent {
+      color: #ddd;
+      background: #000;
+      padding: 40px;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      .modalMenu {
+        padding-bottom: 40px;
+        & > ul {
+          display: flex;
+          gap: 30px;
+          & li a {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-weight: 700;
+            color: #ccc;
+            font-size: 16px;
+            transition: color 0.3s;
+            & > hr {
+              border: 2px solid dodgerblue;
+              opacity: 1;
+            }
+            &.active {
+              color: dodgerblue;
+            }
+          }
+        }
+      }
+      .contentTitle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+        font-size: 16px;
+        font-weight: 500;
+
+        & > span {
+          font-size: 14px;
+        }
+      }
+      .trailersContainer {
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 14px;
+        row-gap: 30px;
+        &.noTrailers{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .noTrailer {
+          width: 100%;
+          height: 600px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          & > span {
+            color: #ccc;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
