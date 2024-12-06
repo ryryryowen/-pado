@@ -12,11 +12,11 @@ const ReviewsPage = async ({
   searchParams: Promise<{ route: string }>;
 }) => {
   const response = await fetch(
-    `${process.env.NEXT_TMDB_BASEURL}/movie/${
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
       (
         await params
       ).id
-    }/reviews?api_key=${process.env.NEXT_TMDB_API_KEY}`,
+    }/reviews?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
     { cache: "force-cache" }
   );
   const reviewsData: IReviewResults = await response.json();

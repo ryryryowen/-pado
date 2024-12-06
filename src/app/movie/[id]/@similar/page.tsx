@@ -12,14 +12,13 @@ const SimilarVideos = async ({
   searchParams: Promise<{ route: string }>;
 }) => {
   const response = await fetch(
-    `${process.env.NEXT_TMDB_BASEURL}/movie/${
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
       (
         await params
       ).id
-    }/similar?api_key=${process.env.NEXT_TMDB_API_KEY}&language=ko-KR`
+    }/similar?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`
   );
   const { results: similarVideos }: IResults = await response.json();
-  console.log(similarVideos);
   if ((await searchParams).route !== "similar") {
     return null;
   }

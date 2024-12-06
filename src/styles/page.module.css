@@ -9,3 +9,10 @@
   padding: 2rem 1rem;
   color: white; /* 텍스트 색상을 흰색으로 설정 */
 }
+
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  overflow: hidden;
+}

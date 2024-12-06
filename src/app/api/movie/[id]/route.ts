@@ -1,5 +1,4 @@
 import ReviewModel from "@/db/reviewSchema";
-import { IUserReview } from "../../../../types";
 import { NextResponse } from "next/server";
 import connectDB from "@/db/mongodb";
 
@@ -27,6 +26,7 @@ export const POST = async (
   { params }: { params: Promise<{ id: string }> }
 ) => {
   try {
+    console.log("connected");
     await connectDB();
     const body = await request.json();
     const newReview = await ReviewModel.create({

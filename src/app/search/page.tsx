@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import { GetMoviesResult } from "../api";
 import { makeImagePath } from "../uitls";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 // 랜덤으로 카테고리 데이터를 가져오는 함수
 const getRandomMovies = (movies: any[]) => {
@@ -12,14 +15,14 @@ const getRandomMovies = (movies: any[]) => {
 };
 
 export default function SearchPage() {
+  const searchParams = useSearchParams();
+  const searchKeyword = searchParams.get("q");
   const [popularMovies, setPopularMovies] = useState<
     GetMoviesResult["results"]
   >([]);
-  const [popularSeries, setPopularSeries] = useState<
-    GetMoviesResult["results"]
-  >([]);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
+  const [searchTerm, setSearchTerm] = useState<string | null>(""); // 검색어 상태 추가
   const [searchResults, setSearchResults] = useState<
     GetMoviesResult["results"]
   >([]); // 검색 결과 상태 추가
@@ -28,6 +31,7 @@ export default function SearchPage() {
   const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수 상태
 
   // 서버에서 데이터를 fetch하는 부분
+
   useEffect(() => {
     const fetchMovies = async () => {
       // 영화 데이터 가져오기
@@ -37,13 +41,6 @@ export default function SearchPage() {
       const movieData = await movieRes.json();
       setPopularMovies(getRandomMovies(movieData.results)); // 랜덤 6개 가져오기
 
-      // 시리즈 데이터 가져오기
-      const seriesRes = await fetch(
-        "https://api.themoviedb.org/3/tv/popular?api_key=614428ff400eba97e5092d23db62b6bd&language=ko"
-      );
-      const seriesData = await seriesRes.json();
-      setPopularSeries(getRandomMovies(seriesData.results)); // 랜덤 6개 가져오기
-
       setIsLoading(false);
     };
     fetchMovies();
@@ -51,7 +48,8 @@ export default function SearchPage() {
 
   // 영화 검색 처리 함수
   const handleSearch = async () => {
-    if (searchTerm.trim() === "") {
+    setSearchTerm(searchKeyword);
+    if (searchTerm?.trim() === "") {
       setSearchResults([]); // 검색어가 없을 경우 결과를 초기화
       return;
     }
@@ -63,6 +61,7 @@ export default function SearchPage() {
       `https://api.themoviedb.org/3/search/movie?api_key=614428ff400eba97e5092d23db62b6bd&language=ko&query=${searchTerm}&page=${currentPage}`
     );
     const searchData = await searchRes.json();
+    console.log(searchData);
 
     if (searchData.results.length === 0) {
       setSearchResults([]); // 검색 결과가 없을 경우 빈 배열 설정
@@ -90,123 +89,97 @@ export default function SearchPage() {
     setSearchResults([]); // 검색 결과 초기화
   };
 
-  // 엔터 키로 검색 처리
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+  useEffect(() => {
+    setSearchTerm(searchKeyword);
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
       handleSearch();
     }
-  };
+  }, [searchTerm]);
 
   return (
-    <div>
-      {isLoading ? (
-        <p className={styles.loadIng}>로딩 중...</p>
-      ) : (
-        <div className={styles.container}>
-          {/* 검색 input */}
-          <div className={styles.searchbarContainer}>
-            <input
-              className={styles.movieInput}
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // 입력값 변경 처리
-              onKeyDown={handleKeyDown} // Enter 키 눌렀을 때 검색 실행
-              placeholder="영화 제목을 검색하세요"
-            />
-            <button className={styles.movieButton} onClick={handleSearch}>
-              검색
-            </button>
-          </div>
-
-          {/* 검색 결과 표시 */}
-          {isSearch && searchResults.length > 0 && (
-            <div className={styles.category}>
-              <h2>검색 결과</h2>
-              <div className={styles.movielist}>
-                {searchResults.slice(0, 6).map((movie) => (
-                  <div key={movie.id} className={styles.moviecard}>
-                    <img
-                      src={makeImagePath(movie.poster_path, "w500")}
-                      alt={movie.title}
-                    />
-                    <h3>{movie.title}</h3>
-                  </div>
-                ))}
-              </div>
-              {/* 페이지네이션 */}
-              {totalPages > 1 && (
-                <div className={styles.pagination}>
-                  {Array.from({ length: Math.min(totalPages, 3) }).map(
-                    (_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={
-                          currentPage === index + 1 ? styles.activePage : ""
-                        }
-                      >
-                        {index + 1}
-                      </button>
-                    )
-                  )}
+    <ProtectedRoute>
+      <div>
+        {isLoading ? (
+          <p className={styles.loadIng}>로딩 중...</p>
+        ) : (
+          <div className={styles.container}>
+            {/* 검색 결과 표시 */}
+            {isSearch && searchResults.length > 0 && (
+              <div className={styles.category}>
+                <h2>검색 결과</h2>
+                <div className={styles.movielist}>
+                  {searchResults.slice(0, 6).map((movie) => (
+                    <div key={movie.id} className={styles.moviecard}>
+                      <Link href={`/movie/${movie.id}`}>
+                        <img
+                          src={makeImagePath(movie.poster_path, "w500")}
+                          alt={movie.title}
+                        />
+                        <h3>{movie.title}</h3>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
-
-          {/* 검색 결과가 없을 경우 */}
-          {isSearch && searchResults.length === 0 && (
-            <div className={styles.noResults}>
-              <h2>해당 영화를 찾을 수 없습니다.</h2>
-            </div>
-          )}
-
-          {/* 기존 페이지로 돌아가기 버튼 */}
-          {isSearch && (
-            <div className={styles.goBackButton}>
-              <button onClick={handleGoBack}>기존 페이지로 돌아가기</button>
-            </div>
-          )}
-
-          {/* 인기 영화 카테고리 */}
-          {!isSearch && !isLoading && (
-            <div className={styles.category}>
-              <h2>인기 영화</h2>
-              <div className={styles.movielist}>
-                {popularMovies.map((movie) => (
-                  <div key={movie.id} className={styles.moviecard}>
-                    <img
-                      src={makeImagePath(movie.poster_path, "w500")}
-                      alt={movie.title}
-                    />
-                    <h3>{movie.title}</h3>
+                {/* 페이지네이션 */}
+                {totalPages > 1 && (
+                  <div className={styles.pagination}>
+                    {Array.from({ length: Math.min(totalPages, 3) }).map(
+                      (_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handlePageChange(index + 1)}
+                          className={
+                            currentPage === index + 1 ? styles.activePage : ""
+                          }
+                        >
+                          {index + 1}
+                        </button>
+                      )
+                    )}
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          )}
+            )}
 
-          {/* 인기 시리즈 카테고리 */}
-          {!isSearch && !isLoading && (
-            <div className={styles.category}>
-              <h2>인기 시리즈</h2>
-              <div className={styles.movielist}>
-                {popularSeries.map((series) => (
-                  <div key={series.id} className={styles.moviecard}>
-                    <img
-                      src={makeImagePath(series.poster_path, "w500")}
-                      alt={series.name}
-                    />
-                    <h3>{series.name}</h3>
-                  </div>
-                ))}
+            {/* 검색 결과가 없을 경우 */}
+            {isSearch && searchResults.length === 0 && (
+              <div className={styles.noResults}>
+                <h2>해당 영화를 찾을 수 없습니다.</h2>
               </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+            )}
+
+            {/* 기존 페이지로 돌아가기 버튼 */}
+            {isSearch && (
+              <div className={styles.goBackButton}>
+                <button onClick={handleGoBack}>기존 페이지로 돌아가기</button>
+              </div>
+            )}
+
+            {/* 인기 영화 카테고리 */}
+            {!isSearch && !isLoading && (
+              <div className={styles.category}>
+                <h2>인기 영화</h2>
+                <div className={styles.movielist}>
+                  {popularMovies.map((movie) => (
+                    <div key={movie.id} className={styles.moviecard}>
+                      <Link href={`/movie/${movie.id}`}>
+                        <img
+                          src={makeImagePath(movie.poster_path, "w500")}
+                          alt={movie.title}
+                        />
+                        <h3>{movie.title}</h3>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </ProtectedRoute>
   );
 }
-
-

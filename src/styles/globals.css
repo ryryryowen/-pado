@@ -28,3 +28,7 @@ body {
 .dark {
   background: #000;
 }
+
+.overflowX {
+  overflow: hidden;
+}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "@/styles/mainbanner.module.css";
 import { Movie } from "@/utils/utills";
+import Link from "next/link";
 
 interface MainBannerProps {
   movies: Movie[];
@@ -65,7 +66,8 @@ const MainBanner = ({ movies }: MainBannerProps) => {
         }}
       >
         {movies.map((movie, index) => (
-          <div
+          <Link
+            href={`/movie/${movie.id}`}
             key={movie.id}
             className={styles.bannerSlide}
             style={{
@@ -79,7 +81,7 @@ const MainBanner = ({ movies }: MainBannerProps) => {
               <h1 className={styles.title}>{movie.title}</h1>
               <p className={styles.overview}>{movie.overview}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

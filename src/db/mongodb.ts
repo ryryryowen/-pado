@@ -6,6 +6,7 @@ const connectDB = async () => {
     if (mongoose.connection.readyState === 1) {
       return mongoose.connection;
     }
+    console.log("connecting");
     //아니라면 새로 연결
     return await mongoose.connect(
       `${process.env.NEXT_MONGODB_URL}/padoReviews`

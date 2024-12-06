@@ -4,7 +4,7 @@ import { IMovieData, IResults, ITrailerResults } from "@/types";
 import adultBadge from "@/images/adultTrueBadge.svg";
 import adultFalseBadge from "@/images/adultFalseBadge.svg";
 import { FaPlay } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+
 import { FaStar } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
@@ -13,7 +13,7 @@ import Image from "next/image";
 import TrailerItem from "@/components/trailer-item";
 import Link from "next/link";
 import MenuIndicator from "@/components/menu-indicator";
-
+import BackButton from "@/components/back-button";
 const DetailModal = async ({
   params,
   searchParams,
@@ -22,12 +22,12 @@ const DetailModal = async ({
   searchParams: Promise<{ route: string }>;
 }) => {
   const urls = [
-    `${process.env.NEXT_TMDB_BASEURL}/movie/${(await params).id}?api_key=${
-      process.env.NEXT_TMDB_API_KEY
-    }&language=ko-KR`,
-    `${process.env.NEXT_TMDB_BASEURL}/movie/${
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
       (await params).id
-    }/videos?api_key=${process.env.NEXT_TMDB_API_KEY}&language=ko-KR`,
+    }?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`,
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
+      (await params).id
+    }/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`,
   ];
 
   const responses = urls.map((url) =>
@@ -62,7 +62,7 @@ const DetailModal = async ({
               : `linear-gradient(to right, #162447 20%, rgba(0, 0, 0, 0.1)), url(https://media.themoviedb.org/t/p/original/${data.poster_path}) 200px center/cover no-repeat `,
           }}
         >
-          <IoMdClose className={style.closeIcon} size={20} />
+          <BackButton />
           <div className={style.bannerContent}>
             <div className={style.headerDesc}>
               <h1 className={style.descTitle}>
@@ -152,7 +152,7 @@ const DetailModal = async ({
                   }
                   href={`/movie/${data.id}?route=similar`}
                 >
-                  비슷한 작품{" "}
+                  비슷한 작품
                   {routeSwitcher === "similar" && (
                     <MenuIndicator route={routeSwitcher} />
                   )}

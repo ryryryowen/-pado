@@ -59,13 +59,14 @@ const Header = () => {
           </li>
         ))}
       </ul>
-      <div className={style.searchbox}>
+      <form className={style.searchbox} action={`/search`}>
         <motion.input
           type="text"
           placeholder="영화, 드라마 검색"
           animate={inputAnimation}
           initial={{ scaleX: 0 }}
           transition={{ type: "linear" }}
+          name="q"
         />
         <motion.div
           onClick={openSearch}
@@ -74,7 +75,7 @@ const Header = () => {
         >
           <FaSearch size={18} />
         </motion.div>
-      </div>
+      </form>
       <div className={style.loginauth}>
         {isLoggedIn ? (
           <div onClick={handleLogout}>
