@@ -1,14 +1,8 @@
 "use client";
-import { ITrailer, ITrailerResults } from "@/types";
+import { ITrailer } from "@/types";
 import style from "@/styles/trailer-item.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TrailerItemSkeleton from "./skeleton/trailer-item-skeleton";
-
-declare global {
-  interface Window {
-    YT: any;
-  }
-}
 
 const TrailerItem = ({ name, trailerKey, published_at }: ITrailer) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +14,10 @@ const TrailerItem = ({ name, trailerKey, published_at }: ITrailer) => {
   return (
     <>
       {isLoading && <TrailerItemSkeleton />}
-      <div className={style.trailerItem} style={{ display: isLoading ? 'none' : 'block' }}>
+      <div
+        className={style.trailerItem}
+        style={{ display: isLoading ? "none" : "block" }}
+      >
         <iframe
           id={`youtube-${trailerKey}`}
           className={style.trailerVideo}

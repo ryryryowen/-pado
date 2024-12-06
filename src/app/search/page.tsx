@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"; // 클라이언트 컴포넌트로 명시
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import styles from "./page.module.css";
 import { GetMoviesResult } from "../api";
 import { makeImagePath } from "../uitls";
@@ -15,6 +16,14 @@ const getRandomMovies = (movies: any[]) => {
 };
 
 export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchContent />
+    </Suspense>
+  );
+}
+
+function SearchContent() {
   const searchParams = useSearchParams();
   const searchKeyword = searchParams.get("q");
   const [popularMovies, setPopularMovies] = useState<
@@ -82,7 +91,7 @@ export default function SearchPage() {
     setSearchResults(searchData.results); // 새로운 페이지의 검색 결과 상태에 설정
   };
 
-  // 검색 결과를 초기화하고 기존 페이지로 돌아가는 함수
+  // 검색 결과를 ���기화하고 기존 페이지로 돌아가는 함수
   const handleGoBack = () => {
     setIsSearch(false); // 검색 상태를 해제하고
     setSearchTerm(""); // 검색어 초기화

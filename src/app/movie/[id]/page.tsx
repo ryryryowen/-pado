@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import style from "@/styles/detail-modal.module.css";
-import { IMovieData, IResults, ITrailerResults } from "@/types";
+import { IMovieData, ITrailerResults } from "@/types";
 import adultBadge from "@/images/adultTrueBadge.svg";
 import adultFalseBadge from "@/images/adultFalseBadge.svg";
 import { FaPlay } from "react-icons/fa";
@@ -126,10 +126,7 @@ const DetailModal = async ({
                   }
                   href={`/movie/${data.id}`}
                 >
-                  트레일러{" "}
-                  {routeSwitcher === "null" && (
-                    <MenuIndicator route={routeSwitcher} />
-                  )}
+                  트레일러 {routeSwitcher === "null" && <MenuIndicator />}
                 </Link>
               </li>
               <li>
@@ -139,10 +136,7 @@ const DetailModal = async ({
                   }
                   href={`/movie/${data.id}?route=reviews`}
                 >
-                  평가/리뷰{" "}
-                  {routeSwitcher === "reviews" && (
-                    <MenuIndicator route={routeSwitcher} />
-                  )}
+                  평가/리뷰 {routeSwitcher === "reviews" && <MenuIndicator />}
                 </Link>
               </li>
               <li>
@@ -153,9 +147,7 @@ const DetailModal = async ({
                   href={`/movie/${data.id}?route=similar`}
                 >
                   비슷한 작품
-                  {routeSwitcher === "similar" && (
-                    <MenuIndicator route={routeSwitcher} />
-                  )}
+                  {routeSwitcher === "similar" && <MenuIndicator />}
                 </Link>
               </li>
             </ul>

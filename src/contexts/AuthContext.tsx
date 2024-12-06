@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { useRouter } from "next/navigation";
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -14,7 +13,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const router = useRouter();
   console.log(isLoggedIn);
 
   // const login = () => setIsLoggedIn(true);

@@ -3,7 +3,6 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
-import { headers } from "next/headers";
 import OverflowControl from "@/components/OverflowControl";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {

@@ -65,7 +65,7 @@ const MainBanner = ({ movies }: MainBannerProps) => {
           transform: `translateX(-${currentIndex * 100}%)`,
         }}
       >
-        {movies.map((movie, index) => (
+        {movies.map((movie) => (
           <Link
             href={`/movie/${movie.id}`}
             key={movie.id}

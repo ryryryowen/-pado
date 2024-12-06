@@ -1,11 +1,10 @@
 import { IReviewResults, IUserReview } from "@/types";
 import style from "@/styles/review-list.module.css";
 import Image from "next/image";
-import defaultProfile from "@/images/DefaultProfile.jpg";
+import defaultProfile from "@/images/defaultProfile.jpg";
 import { FaStar } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
-import { AiFillLike } from "react-icons/ai";
 import { LiaCommentSlashSolid } from "react-icons/lia";
 
 const ReviewList = async ({

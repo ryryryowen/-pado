@@ -22,7 +22,6 @@ const Layout = async ({
   const trendingMovies = await fetchTrendingMovies();
   const popularMovies = await fetchPopularMovies();
   const topRatedMovies = await fetchTopRatedMovies();
-  ``;
 
   return (
     <ProtectedRoute>

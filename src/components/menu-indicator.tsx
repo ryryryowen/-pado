@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const MenuIndicator = ({ route }: { route: string }) => {
+const MenuIndicator = () => {
   return (
     <motion.hr
       layoutId="menu-indicator"

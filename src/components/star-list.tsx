@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import style from "@/styles/reviews-slot.module.css";
 import { FaStar } from "react-icons/fa";
 
