@@ -14,7 +14,7 @@ const createReviewAction = async (_: any, formData: FormData) => {
     };
   }
   try {
-    const response = await fetch(`http://localhost:3000/api/movie/${movieId}`, {
+    const response = await fetch(`https://pado-two.vercel.app/api/movie/${movieId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

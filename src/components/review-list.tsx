@@ -14,7 +14,7 @@ const ReviewList = async ({
   params: { id: string };
   reviews: IReviewResults;
 }) => {
-  const response = await fetch(`http://localhost:3000/api/movie/${params.id}`, {
+  const response = await fetch(`https://pado-two.vercel.app/api/movie/${params.id}`, {
     headers: { Accept: "application/json" },
     next: {
       tags: [`review-${params.id}`],
