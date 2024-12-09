@@ -5,6 +5,7 @@ const reviewSchema = new Schema({
   movieId: {
     type: String,
     required: true,
+    index: true,
   },
   id: {
     type: String,
@@ -31,8 +32,6 @@ const reviewSchema = new Schema({
   },
 });
 
-//초기화될때 한번이 아닌 값이 추가될때마다 몽고디비에 접근하므로 이미 존재하는지를 확인해야함.
-const ReviewModel =
-  models.ReviewModel || mongoose.model("Review", reviewSchema);
+const ReviewModel = models.Review || mongoose.model("Review", reviewSchema);
 
 export default ReviewModel;

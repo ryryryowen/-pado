@@ -8,9 +8,11 @@ const connectDB = async () => {
     }
     console.log("connecting");
     //아니라면 새로 연결
-    return await mongoose.connect(
+    const connection = await mongoose.connect(
       `${process.env.NEXT_MONGODB_URL}/padoReviews`
     );
+
+    return connection;
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
   }

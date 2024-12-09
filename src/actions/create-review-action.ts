@@ -2,6 +2,7 @@
 
 "use server";
 
+import ReviewModel from "@/db/reviewSchema";
 import { revalidatePath } from "next/cache";
 const createReviewAction = async (_: any, formData: FormData) => {
   const movieId = formData.get("movieId");
@@ -14,17 +15,30 @@ const createReviewAction = async (_: any, formData: FormData) => {
     };
   }
   try {
-    const response = await fetch(`https://pado-two.vercel.app/api/movie/${movieId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ratings, movieId, content }),
-    });
-    console.log(response.status);
-    if (!response.ok) {
-      throw new Error(response.statusText);
+    // const response = await fetch(
+    //   `https://pado-ott.vercel.app/api/movie/${movieId}`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ ratings, movieId, content }),
+    //   }
+    // );
+    // console.log(response.status);
+    try {
+      const response = await ReviewModel.create({
+        movieId,
+        ratings,
+        content,
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.error(error);
     }
+
     revalidatePath(`review-${movieId}`);
     return {
       status: true,

@@ -18,7 +18,9 @@ export default function ProtectedRoute({
     }
   }, [isLoggedIn, router]);
 
-  if (!isLoggedIn) return null;
+  if (!isLoggedIn) {
+    return null;
+  }
 
   return <>{children}</>;
 }

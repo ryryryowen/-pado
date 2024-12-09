@@ -6,6 +6,8 @@ import { FaStar } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
 import { LiaCommentSlashSolid } from "react-icons/lia";
+import ReviewModel from "@/db/reviewSchema";
+import connectDB from "@/db/mongodb";
 
 const ReviewList = async ({
   params,
@@ -14,22 +16,46 @@ const ReviewList = async ({
   params: { id: string };
   reviews: IReviewResults;
 }) => {
-  const response = await fetch(`https://pado-two.vercel.app/api/movie/${params.id}`, {
-    headers: { Accept: "application/json" },
-    next: {
-      tags: [`review-${params.id}`],
+  let userReviews: IUserReview[] = [];
+
+  try {
+    // const response = await fetch(
+    //   `https://pado-ott.vercel.app/api/movie/645757`,
+    //   {
+    //     headers: { Accept: "application/json" },
+    //     next: {
+    //       tags: [`review-${params.id}`],
+    //       revalidate: 30,
+    //     },
+    //   }
+    // );
+
+    await connectDB();
+
+    const response = await ReviewModel.find({ movieId: params.id }).sort({
+      createdAt: "desc",
+    });
+    console.log(response);
+
+    if (!response) throw new Error("Failed to fetch reviews");
+    // userReviews = await response.json();
+    userReviews = response;
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error);
+    // Continue with empty userReviews array
+  }
+
+  const formattedTmdbReviews = reviews.results.map((review) => ({
+    ...review,
+    author_details: {
+      ...review.author_details,
+      rating:
+        Math.floor(review.author_details.rating / 2) === 0
+          ? 1
+          : Math.floor(review.author_details.rating / 2),
     },
-  });
-  const userReviews: IUserReview[] = await response.json();
-  const formattedTmdbReviews = reviews.results.map((review) => {
-    return {
-      ...review,
-      author_details: {
-        ...review.author_details,
-        rating: Math.floor(review.author_details.rating / 2),
-      },
-    };
-  });
+  }));
+
   return (
     <section className={style.reviewsContainer}>
       <h5 className={style.reviewsTitle}>
