@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 100px auto 0;
+  color: #a5a5a5;
+  .footerinfo {
+    width: 100%;
+    display: flex;
+    .footerinfomain {
+      width: 100%;
+      display: flex;
+      gap: 30px;
+      border-top: 1px solid #a5a5a5;
+      border-bottom: 1px solid #a5a5a5;
+      font-size: 1.2em;
+      padding: 20px 0;
+    }
+  }
+  .footermain {
+    /* margin-top: 20px; */
+    .footermenu {
+      padding: 20px 0;
+      display: flex;
+      gap: 20px;
+      font-size: 0.9em;
+    }
+  }
+  .footerdesc {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 0.8em;
+  }
+  .footercopy {
+    margin-top: 15px;
+    font-size: 0.8em;
+  }
+}
