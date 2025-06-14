@@ -36,34 +36,46 @@ PADO는 사용자들이 영화 정보를 검색하고, 리뷰를 작성하며, �
 Next.js의 App Router와 병렬 라우트 기능을 활용하여 영화 상세 정보, 리뷰, 유사 영화 추천을 동시에 로드하는 효율적인 UI를 구현했습니다.
 
 ```typescript
-// app/movie/[id]/layout.tsx
-export default function MovieDetailLayout({
-  children,
-  reviews,
-  similar
+// app/movie/[id]/page.tsx
+const DetailModal = async ({
+  params,
+  searchParams,
 }: {
-  children: React.ReactNode;
-  reviews: React.ReactNode;
-  similar: React.ReactNode;
-}) {
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">{children}</div>
-        <div className="space-y-8">
-          <section className="bg-gray-800 rounded-lg p-4">
-            <h2 className="text-xl font-bold mb-4">리뷰</h2>
-            {reviews}
-          </section>
-          <section className="bg-gray-800 rounded-lg p-4">
-            <h2 className="text-xl font-bold mb-4">비슷한 영화</h2>
-            {similar}
-          </section>
-        </div>
-      </div>
-    </div>
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ route: string }>;
+}) => {
+  const urls = [
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
+      (await params).id
+    }?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`,
+    `${process.env.NEXT_PUBLIC_TMDB_BASE_PATH}/movie/${
+      (await params).id
+    }/videos?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`,
+  ];
+
+  const responses = urls.map((url) =>
+    fetch(url).then((response) => response.json())
   );
-}
+
+  const [data, trailerData] = (await Promise.all(responses)) as [
+    IMovieData,
+    ITrailerResults
+  ];
+
+  let routeSwitcher;
+  switch ((await searchParams).route) {
+    case "reviews":
+      routeSwitcher = "reviews";
+      break;
+    case "similar":
+      routeSwitcher = "similar";
+      break;
+    default:
+      routeSwitcher = "null";
+  }
+
+  return (
+//...
 ```
 
 ### 2. 서버 액션을 활용한 리뷰 시스템
